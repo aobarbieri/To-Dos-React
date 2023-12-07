@@ -1,15 +1,32 @@
 import { useState } from 'react'
-import './styles.css'
+import './styles/styles.css'
 import ToDoList from './ToDoList'
 import NewToDoForm from './NewToDoForm'
-import NewEmotionForm from './NewEmotionForm'
 
 function App() {
-	const [todos, setTodos] = useState(['Have fun', 'Learn React', 'Learn the MERN-Stack'])
+	const [todos, setTodos] = useState([
+		{ text: 'Have Fun', completed: true },
+		{ text: 'Learn React', completed: false },
+		{ text: 'Learn the MERN-Stack', completed: false },
+	])
 	const [showTodos, setShowTodos] = useState(true)
 
 	const addTodo = (todo) => {
 		const newState = [...todos, todo]
+		setTodos(newState)
+	}
+
+	const setToCompleted = (clickedToDo) => {
+		//Replace objects/arrays, not mutate them
+		const todosCopy = [...todos]
+		todosCopy[clickedToDo.index].completed = true
+
+		function isCompleted(todo) {
+			if (!todo.completed) {
+				return todo
+			}
+		}
+		const newState = todosCopy.filter(isCompleted)
 		setTodos(newState)
 	}
 
@@ -26,11 +43,12 @@ function App() {
 	return (
 		<div className='App'>
 			<h1>React To-Do</h1>
-			<button onClick={() => setShowTodos(!showTodos)}>{showTodos ? 'HIDE' : 'SHOW'}</button>
-			<hr />
-			{showTodos && <ToDoList todos={todos} />}
 			<hr />
 			<NewToDoForm addTodo={addTodo} />
+			<button onClick={() => setShowTodos(!showTodos)}>{showTodos ? 'HIDE' : 'SHOW'}</button>
+			<hr />
+			{showTodos && <ToDoList todos={todos} setToCompleted={setToCompleted} />}
+
 			<hr />
 			<form>
 				<h1>

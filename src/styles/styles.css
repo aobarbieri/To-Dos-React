@@ -11,7 +11,7 @@
 
 .ToDoListItem {
   display                     : flex;
-  justify-content             : flex-start;
+  justify-content             : space-between;
   < !-- default -->align-items: center;
   margin                      : 4vmin;
   padding                     : 2vmin;
@@ -36,4 +36,8 @@ form {
   width                : 20rem;
   text-align           : left;
   font-size            : 1.5rem;
+}
+
+.line-through {
+  text-decoration: line-through;
 }

@@ -11,7 +11,10 @@ export default function NewToDoForm(props) {
 
 	const handleAddTodo = (evt) => {
 		evt.preventDefault()
-		const userInput = newTodo
+		const userInput = {
+			text: newTodo,
+			completed: false,
+		}
 		props.addTodo(userInput)
 		setNewTodo('')
 	}
